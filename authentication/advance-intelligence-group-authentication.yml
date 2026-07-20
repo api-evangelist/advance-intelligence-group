@@ -1,0 +1,36 @@
+generated: '2026-07-17'
+method: searched
+source: openapi/advance-intelligence-group-advance-ai-openapi.yml
+docs: https://doc.advance.ai/global_document_verification.html
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - header
+  model: >-
+    Two-step: obtain a short-lived access token by signing a request with your
+    accessKey + secretKey, then pass the token in the X-ACCESS-TOKEN header on
+    every API call.
+schemes:
+- name: AccessToken
+  type: apiKey
+  in: header
+  parameter: X-ACCESS-TOKEN
+  description: >-
+    Short-lived access token passed on every request. Obtained from
+    POST /openapi/auth/ticket/v1/generate-token.
+  sources:
+  - openapi/advance-intelligence-group-advance-ai-openapi.yml
+token_flow:
+  endpoint: POST /openapi/auth/ticket/v1/generate-token
+  request:
+    accessKey: Account access key.
+    timestamp: 13-digit Unix epoch milliseconds.
+    signature: SHA256(accessKey + secretKey + timestamp).
+    periodSecond: Optional token TTL in seconds (default 3600, range 60-86400).
+  response:
+    token: Value for the X-ACCESS-TOKEN header.
+    expiredTime: Unix expiry timestamp; re-request when expired.
+notes:
+- No OAuth 2.0 or OpenID Connect; credentials are an accessKey/secretKey pair.
+- Signature-based token issuance prevents replay via the timestamp component.
