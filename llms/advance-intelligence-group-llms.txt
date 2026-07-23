@@ -1,0 +1,34 @@
+# Advance Intelligence Group — ADVANCE.AI Open API
+
+> Advance Intelligence Group is a Singapore-headquartered AI technology company (founded 2016, backed by SoftBank Vision Fund and Warburg Pincus). Its ADVANCE.AI business unit provides digital identity verification, KYC/KYB, AML and risk-management services via a public eKYC Open API: token authentication, document verification, identity-document OCR, face comparison and liveness detection. Requests authenticate with a signature-issued access token passed in the X-ACCESS-TOKEN header and share a common response envelope (code / message / data / transactionId / pricingStrategy).
+
+## APIs
+- [ADVANCE.AI Open API docs](https://doc.advance.ai/): eKYC building blocks — auth, document verification, OCR, face, liveness.
+- Base URL: https://api.advance.ai (Singapore regional host: https://sg-api.advance.ai)
+
+## Specs
+- [OpenAPI](https://raw.githubusercontent.com/api-evangelist/advance-intelligence-group/refs/heads/main/openapi/advance-intelligence-group-advance-ai-openapi.yml)
+- [OpenAPI Overlay (AE enhancements)](https://raw.githubusercontent.com/api-evangelist/advance-intelligence-group/refs/heads/main/overlays/advance-intelligence-group-advance-ai-overlay.yaml)
+
+## Operations
+- generateToken — POST /openapi/auth/ticket/v1/generate-token
+- getDocumentVerificationAuthLicense — POST /intl/openapi/face-identity/document-verification/v1/auth-license
+- queryDocumentVerification — POST /intl/openapi/face-identity/document-verification/v1/query
+- ocrKtpCheck — POST /openapi/face-recognition/v3/ocr-ktp-check
+- faceComparison — POST /openapi/face-recognition/v4/check
+
+## Docs
+- [API Reference](https://doc.advance.ai/global_document_verification.html)
+- [OCR (All Fields)](https://doc.advance.ai/enhanced_ocr.html)
+- [Face Comparison](https://doc.advance.ai/face_recognition.html)
+- [Liveness Detection SDK](https://doc.advance.ai/liveness_detection.html)
+- [Help Center](https://support.advance.ai/hc/en-us)
+- [Security & Compliance](https://advance.ai/security-compliance/)
+- [Terms of Service](https://advance.ai/terms-of-service/)
+- [Privacy Policy](https://advance.ai/privacy-policy/)
+
+## Artifacts
+- [Authentication profile](https://raw.githubusercontent.com/api-evangelist/advance-intelligence-group/refs/heads/main/authentication/advance-intelligence-group-authentication.yml)
+- [API conventions](https://raw.githubusercontent.com/api-evangelist/advance-intelligence-group/refs/heads/main/conventions/advance-intelligence-group-conventions.yml)
+- [Error codes](https://raw.githubusercontent.com/api-evangelist/advance-intelligence-group/refs/heads/main/errors/advance-intelligence-group-error-codes.yml)
+- [Conformance & compliance](https://raw.githubusercontent.com/api-evangelist/advance-intelligence-group/refs/heads/main/conformance/advance-intelligence-group-conformance.yml)

@@ -1,24 +1,158 @@
 aid: advance-intelligence-group
 name: Advance Intelligence Group
-description: 'Advance Intelligence Group is a company surfaced as a portfolio company of softbank-vision-fund
-  and added to the API Evangelist network as a stub for enrichment. Sector: fintech. This profile is a
-  lead awaiting the enrichment pipeline.'
+description: >-
+  Advance Intelligence Group is an AI-driven technology company headquartered in
+  Singapore, founded in 2016 and backed by SoftBank Vision Fund, Warburg Pincus
+  and others. It operates three core business lines: ADVANCE.AI (Southeast Asia's
+  leading provider of digital identity verification, KYC/KYB, AML, compliance and
+  risk-management solutions, serving 500+ enterprise clients), Atome Financial
+  (buy-now-pay-later and digital lending) and Ginee (e-commerce enablement). The
+  ADVANCE.AI business unit exposes a public Open API for eKYC — token
+  authentication, global document verification, OCR field extraction, face
+  comparison and liveness detection — used across banking, fintech, payments,
+  retail and e-commerce in emerging markets. This API Evangelist profile was
+  enriched from the public developer documentation at doc.advance.ai.
 url: https://raw.githubusercontent.com/api-evangelist/advance-intelligence-group/refs/heads/main/apis.yml
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://advance.ai/wp-content/uploads/2025/09/top-header-right-image.webp
 x-type: company
 x-source: vc-portfolio
 x-backed-by:
 - softbank-vision-fund
-x-tier: stub
-x-tier-reason: portfolio-lead
+x-tier: profiled
+x-tier-reason: portfolio-lead-enriched
 specificationVersion: '0.20'
 created: '2026-07-17'
 modified: '2026-07-17'
 tags:
 - Company
 - Fintech
-apis: []
+- Identity Verification
+- KYC
+- AML
+- Face Recognition
+- OCR
+- Artificial Intelligence
+- Risk Management
+- Singapore
+apis:
+- aid: advance-intelligence-group:advance-intelligence-group-authentication-api
+  name: Advance Intelligence Group Authentication API
+  description: Obtain an access token for calling the Open API.
+  humanURL: https://doc.advance.ai/
+  baseURL: https://api.advance.ai
+  tags:
+  - Authentication
+  properties:
+  - type: OpenAPI
+    url: openapi/advance-intelligence-group-authentication-api-openapi.yml
+  - type: Documentation
+    url: https://doc.advance.ai/
+  - type: APIReference
+    url: https://doc.advance.ai/global_document_verification.html
+- aid: advance-intelligence-group:advance-intelligence-group-document-verification-api
+  name: Advance Intelligence Group Document Verification API
+  description: Global document verification (SDK auth-license + result query).
+  humanURL: https://doc.advance.ai/
+  baseURL: https://api.advance.ai
+  tags:
+  - Document Verification
+  properties:
+  - type: OpenAPI
+    url: openapi/advance-intelligence-group-document-verification-api-openapi.yml
+  - type: Documentation
+    url: https://doc.advance.ai/
+  - type: APIReference
+    url: https://doc.advance.ai/global_document_verification.html
+- aid: advance-intelligence-group:advance-intelligence-group-face-recognition-api
+  name: Advance Intelligence Group Face Recognition API
+  description: Face comparison and biometric matching.
+  humanURL: https://doc.advance.ai/
+  baseURL: https://api.advance.ai
+  tags:
+  - Face Recognition
+  properties:
+  - type: OpenAPI
+    url: openapi/advance-intelligence-group-face-recognition-api-openapi.yml
+  - type: Documentation
+    url: https://doc.advance.ai/
+  - type: APIReference
+    url: https://doc.advance.ai/global_document_verification.html
+- aid: advance-intelligence-group:advance-intelligence-group-ocr-api
+  name: Advance Intelligence Group OCR API
+  description: Optical character recognition for identity documents.
+  humanURL: https://doc.advance.ai/
+  baseURL: https://api.advance.ai
+  tags:
+  - OCR
+  properties:
+  - type: OpenAPI
+    url: openapi/advance-intelligence-group-ocr-api-openapi.yml
+  - type: Documentation
+    url: https://doc.advance.ai/
+  - type: APIReference
+    url: https://doc.advance.ai/global_document_verification.html
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
+common:
+- type: DomainSecurity
+  url: security/advance-intelligence-group-domain-security.yml
+- type: DeveloperPortal
+  url: https://doc.advance.ai/
+- type: Website
+  url: https://advance.ai/
+- type: Documentation
+  url: https://doc.advance.ai/
+- type: APIReference
+  url: https://doc.advance.ai/global_document_verification.html
+- type: Support
+  url: https://support.advance.ai/hc/en-us
+- type: Blog
+  url: https://advance.ai/blog/
+- type: TermsOfService
+  url: https://advance.ai/terms-of-service/
+- type: PrivacyPolicy
+  url: https://advance.ai/privacy-policy/
+- type: Compliance
+  url: https://advance.ai/security-compliance/
+- type: Authentication
+  url: authentication/advance-intelligence-group-authentication.yml
+- type: Conventions
+  url: conventions/advance-intelligence-group-conventions.yml
+- type: ErrorCatalog
+  url: errors/advance-intelligence-group-error-codes.yml
+- type: Lifecycle
+  url: lifecycle/advance-intelligence-group-lifecycle.yml
+- type: Conformance
+  url: conformance/advance-intelligence-group-conformance.yml
+- type: Packages
+  url: packages/advance-intelligence-group-packages.yml
+- type: SDKs
+  url: packages/advance-intelligence-group-packages.yml
+- type: MCPServer
+  url: mcp/advance-intelligence-group-mcp.yml
+- type: LLMsTxt
+  url: llms/advance-intelligence-group-llms.txt
+- type: DataModel
+  url: data-model/advance-intelligence-group-data-model.yml
+- type: AgentSkill
+  url: skills/_index.yml
+x-enrichment:
+  date: '2026-07-19'
+  status: backfilled
+  pass: local-v1
+  note: backfilled from .gitignore signal + verified work evidence

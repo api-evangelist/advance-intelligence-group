@@ -1,0 +1,144 @@
+openapi: 3.0.3
+info:
+  title: ADVANCE.AI Open Authentication Document Verification API
+  version: '1.0'
+  description: ADVANCE.AI is the digital identity verification, KYC/KYB, AML and risk management business unit of Advance Intelligence Group. Its Open API surface provides eKYC building blocks — token authentication, document verification, OCR field extraction, face comparison and liveness detection — used by 500+ enterprise clients across banking, fintech, payments and e-commerce in Southeast Asia and other emerging markets. All requests authenticate with an access token obtained from the token endpoint and passed in the `X-ACCESS-TOKEN` header. Responses share a common envelope (`code`, `message`, `data`, `transactionId`, `pricingStrategy`). Modeled by API Evangelist from the public documentation at https://doc.advance.ai — no fabricated operations.
+  contact:
+    name: ADVANCE.AI Business Development
+    url: https://advance.ai/contact-us/
+  termsOfService: https://advance.ai/terms-of-service/
+servers:
+- url: https://api.advance.ai
+  description: Global production host
+- url: https://sg-api.advance.ai
+  description: Singapore regional host
+security:
+- AccessToken: []
+tags:
+- name: Document Verification
+  description: Global document verification (SDK auth-license + result query).
+paths:
+  /intl/openapi/face-identity/document-verification/v1/auth-license:
+    post:
+      tags:
+      - Document Verification
+      operationId: getDocumentVerificationAuthLicense
+      summary: Get a document-verification SDK auth license
+      description: Issue a license token authorizing the client SDK to run a document verification session. Optionally scope the license to a set of application IDs and a validity window.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthLicenseRequest'
+      responses:
+        '200':
+          description: License token issued (or a business error in the envelope).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthLicenseResponse'
+  /intl/openapi/face-identity/document-verification/v1/query:
+    post:
+      tags:
+      - Document Verification
+      operationId: queryDocumentVerification
+      summary: Query a document-verification result
+      description: Retrieve the result of a document verification session by its SDK identifier (`IDVID`), including OCR output, ID forgery detection and the captured document images.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DocumentVerificationQueryRequest'
+      responses:
+        '200':
+          description: Verification result (or a business error in the envelope).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DocumentVerificationQueryResponse'
+components:
+  schemas:
+    AuthLicenseResponse:
+      allOf:
+      - $ref: '#/components/schemas/Envelope'
+      - type: object
+        properties:
+          data:
+            type: object
+            properties:
+              license:
+                type: string
+                description: License token for the client SDK.
+              expiredTime:
+                type: integer
+                format: int64
+    DocumentVerificationQueryRequest:
+      type: object
+      required:
+      - IDVID
+      properties:
+        IDVID:
+          type: string
+          description: SDK session identifier returned by the client.
+        resultType:
+          type: string
+          enum:
+          - IMAGE_URL
+          - IMAGE_BASE64
+          description: Image return format. IMAGE_URL links are valid for 24 hours; IMAGE_BASE64 returns the raw base64 string.
+    Envelope:
+      type: object
+      description: Common response envelope shared by all ADVANCE.AI Open API operations.
+      properties:
+        code:
+          type: string
+          description: Business status code (e.g. SUCCESS, PARAMETER_ERROR, ACCESS_DENIED).
+          example: SUCCESS
+        message:
+          type: string
+          description: Human-readable explanation of the status code.
+        extra:
+          type: string
+          description: Exception detail, present on some error responses.
+        transactionId:
+          type: string
+          maxLength: 64
+          description: Request identifier echoed back for tracing.
+        pricingStrategy:
+          type: string
+          enum:
+          - FREE
+          - PAY
+          description: Whether the call was billable.
+      required:
+      - code
+    AuthLicenseRequest:
+      type: object
+      properties:
+        licenseEffectiveSeconds:
+          type: integer
+          description: License validity in seconds. Default 600, max 86400.
+        applicationId:
+          type: array
+          items:
+            type: string
+          description: Optional list of application IDs the license is valid for.
+    DocumentVerificationQueryResponse:
+      allOf:
+      - $ref: '#/components/schemas/Envelope'
+      - type: object
+        properties:
+          data:
+            type: object
+            description: OCR fields, forgery detection flags and document images.
+  securitySchemes:
+    AccessToken:
+      type: apiKey
+      in: header
+      name: X-ACCESS-TOKEN
+      description: Access token obtained from POST /openapi/auth/ticket/v1/generate-token.
+externalDocs:
+  description: ADVANCE.AI API Documentation
+  url: https://doc.advance.ai/

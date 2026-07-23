@@ -1,0 +1,108 @@
+openapi: 3.0.3
+info:
+  title: ADVANCE.AI Open Authentication Face Recognition API
+  version: '1.0'
+  description: ADVANCE.AI is the digital identity verification, KYC/KYB, AML and risk management business unit of Advance Intelligence Group. Its Open API surface provides eKYC building blocks — token authentication, document verification, OCR field extraction, face comparison and liveness detection — used by 500+ enterprise clients across banking, fintech, payments and e-commerce in Southeast Asia and other emerging markets. All requests authenticate with an access token obtained from the token endpoint and passed in the `X-ACCESS-TOKEN` header. Responses share a common envelope (`code`, `message`, `data`, `transactionId`, `pricingStrategy`). Modeled by API Evangelist from the public documentation at https://doc.advance.ai — no fabricated operations.
+  contact:
+    name: ADVANCE.AI Business Development
+    url: https://advance.ai/contact-us/
+  termsOfService: https://advance.ai/terms-of-service/
+servers:
+- url: https://api.advance.ai
+  description: Global production host
+- url: https://sg-api.advance.ai
+  description: Singapore regional host
+security:
+- AccessToken: []
+tags:
+- name: Face Recognition
+  description: Face comparison and biometric matching.
+paths:
+  /openapi/face-recognition/v4/check:
+    post:
+      tags:
+      - Face Recognition
+      operationId: faceComparison
+      summary: Compare two faces
+      description: Compare two photographs and return a similarity score (0-100) plus the detected face position in each image.
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/FaceComparisonRequest'
+      responses:
+        '200':
+          description: Comparison result (or a business error in the envelope).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FaceComparisonResponse'
+components:
+  schemas:
+    FaceComparisonRequest:
+      type: object
+      required:
+      - firstImage
+      - secondImage
+      properties:
+        firstImage:
+          type: string
+          format: binary
+          description: First photograph for comparison.
+        secondImage:
+          type: string
+          format: binary
+          description: Second photograph for comparison.
+    FaceComparisonResponse:
+      allOf:
+      - $ref: '#/components/schemas/Envelope'
+      - type: object
+        properties:
+          data:
+            type: object
+            properties:
+              similarity:
+                type: number
+                description: Similarity score from 0 to 100.
+              firstFace:
+                type: object
+                description: Detected face position in the first image.
+              secondFace:
+                type: object
+                description: Detected face position in the second image.
+    Envelope:
+      type: object
+      description: Common response envelope shared by all ADVANCE.AI Open API operations.
+      properties:
+        code:
+          type: string
+          description: Business status code (e.g. SUCCESS, PARAMETER_ERROR, ACCESS_DENIED).
+          example: SUCCESS
+        message:
+          type: string
+          description: Human-readable explanation of the status code.
+        extra:
+          type: string
+          description: Exception detail, present on some error responses.
+        transactionId:
+          type: string
+          maxLength: 64
+          description: Request identifier echoed back for tracing.
+        pricingStrategy:
+          type: string
+          enum:
+          - FREE
+          - PAY
+          description: Whether the call was billable.
+      required:
+      - code
+  securitySchemes:
+    AccessToken:
+      type: apiKey
+      in: header
+      name: X-ACCESS-TOKEN
+      description: Access token obtained from POST /openapi/auth/ticket/v1/generate-token.
+externalDocs:
+  description: ADVANCE.AI API Documentation
+  url: https://doc.advance.ai/

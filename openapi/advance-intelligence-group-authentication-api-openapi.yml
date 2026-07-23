@@ -1,0 +1,112 @@
+openapi: 3.0.3
+info:
+  title: ADVANCE.AI Open Authentication API
+  version: '1.0'
+  description: ADVANCE.AI is the digital identity verification, KYC/KYB, AML and risk management business unit of Advance Intelligence Group. Its Open API surface provides eKYC building blocks — token authentication, document verification, OCR field extraction, face comparison and liveness detection — used by 500+ enterprise clients across banking, fintech, payments and e-commerce in Southeast Asia and other emerging markets. All requests authenticate with an access token obtained from the token endpoint and passed in the `X-ACCESS-TOKEN` header. Responses share a common envelope (`code`, `message`, `data`, `transactionId`, `pricingStrategy`). Modeled by API Evangelist from the public documentation at https://doc.advance.ai — no fabricated operations.
+  contact:
+    name: ADVANCE.AI Business Development
+    url: https://advance.ai/contact-us/
+  termsOfService: https://advance.ai/terms-of-service/
+servers:
+- url: https://api.advance.ai
+  description: Global production host
+- url: https://sg-api.advance.ai
+  description: Singapore regional host
+security:
+- AccessToken: []
+tags:
+- name: Authentication
+  description: Obtain an access token for calling the Open API.
+paths:
+  /openapi/auth/ticket/v1/generate-token:
+    post:
+      tags:
+      - Authentication
+      operationId: generateToken
+      summary: Generate an access token
+      description: Exchange your access key and a request signature for a short-lived access token. The `signature` is the SHA256 hash of `accessKey + secretKey + timestamp`. The returned token is passed on all subsequent requests in the `X-ACCESS-TOKEN` header.
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenerateTokenRequest'
+      responses:
+        '200':
+          description: Token generated (or a business error in the envelope).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenerateTokenResponse'
+components:
+  schemas:
+    GenerateTokenResponse:
+      allOf:
+      - $ref: '#/components/schemas/Envelope'
+      - type: object
+        properties:
+          data:
+            type: object
+            properties:
+              token:
+                type: string
+                description: Access token for the X-ACCESS-TOKEN header.
+              expiredTime:
+                type: integer
+                format: int64
+                description: Token expiry as a Unix timestamp.
+    Envelope:
+      type: object
+      description: Common response envelope shared by all ADVANCE.AI Open API operations.
+      properties:
+        code:
+          type: string
+          description: Business status code (e.g. SUCCESS, PARAMETER_ERROR, ACCESS_DENIED).
+          example: SUCCESS
+        message:
+          type: string
+          description: Human-readable explanation of the status code.
+        extra:
+          type: string
+          description: Exception detail, present on some error responses.
+        transactionId:
+          type: string
+          maxLength: 64
+          description: Request identifier echoed back for tracing.
+        pricingStrategy:
+          type: string
+          enum:
+          - FREE
+          - PAY
+          description: Whether the call was billable.
+      required:
+      - code
+    GenerateTokenRequest:
+      type: object
+      required:
+      - accessKey
+      - timestamp
+      - signature
+      properties:
+        accessKey:
+          type: string
+          description: Your account access key.
+        timestamp:
+          type: string
+          description: 13-digit Unix epoch milliseconds.
+        signature:
+          type: string
+          description: SHA256 of accessKey + secretKey + timestamp.
+        periodSecond:
+          type: string
+          description: Token validity in seconds. Default 3600, range 60-86400.
+  securitySchemes:
+    AccessToken:
+      type: apiKey
+      in: header
+      name: X-ACCESS-TOKEN
+      description: Access token obtained from POST /openapi/auth/ticket/v1/generate-token.
+externalDocs:
+  description: ADVANCE.AI API Documentation
+  url: https://doc.advance.ai/

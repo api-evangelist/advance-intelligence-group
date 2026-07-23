@@ -1,0 +1,51 @@
+generated: '2026-07-17'
+method: searched
+source: https://doc.advance.ai/global_document_verification.html
+api: openapi/advance-intelligence-group-advance-ai-openapi.yml
+authentication:
+  style: signature-issued access token
+  header: X-ACCESS-TOKEN
+  detail: authentication/advance-intelligence-group-authentication.yml
+request_tracing:
+  field: transactionId
+  location: response envelope
+  max_length: 64
+  note: >-
+    Each response echoes a transactionId (<=64 chars) used to trace and support a
+    given request. This is a correlation/request id, not a documented
+    idempotency key — repeat submissions are not guaranteed de-duplicated.
+error_envelope:
+  shape: '{ code, message, extra, transactionId, pricingStrategy }'
+  code_field: code
+  message_field: message
+  detail: errors/advance-intelligence-group-error-codes.yml
+  reference: >-
+    All operations return HTTP 200 with a business status in `code`; success is
+    code == SUCCESS. Errors are carried in the envelope, not HTTP status.
+billing_signal:
+  field: pricingStrategy
+  values: [FREE, PAY]
+  note: >-
+    Indicates whether a given call was billable; some validation errors are
+    returned FREE while completed checks are PAY.
+media_types:
+  json_operations: application/json
+  file_operations: multipart/form-data
+  note: >-
+    OCR and face-comparison operations accept image uploads via
+    multipart/form-data (max image size 15 MB for OCR); token and
+    document-verification operations use application/json.
+versioning:
+  scheme: uri-path
+  detail: lifecycle/advance-intelligence-group-lifecycle.yml
+  examples: [v1 (auth/document-verification), v3 (OCR), v4 (face comparison)]
+image_return:
+  parameter: resultType
+  values:
+    IMAGE_URL: URL valid for 24 hours.
+    IMAGE_BASE64: Raw base64 image string.
+idempotency:
+  supported: false
+  note: >-
+    No idempotency-key header is documented. Clients should treat verification
+    submissions as non-idempotent and de-duplicate on their own transactionId.

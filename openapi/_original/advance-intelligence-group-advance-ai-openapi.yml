@@ -1,0 +1,321 @@
+openapi: 3.0.3
+info:
+  title: ADVANCE.AI Open API
+  version: '1.0'
+  description: >-
+    ADVANCE.AI is the digital identity verification, KYC/KYB, AML and risk
+    management business unit of Advance Intelligence Group. Its Open API surface
+    provides eKYC building blocks — token authentication, document verification,
+    OCR field extraction, face comparison and liveness detection — used by 500+
+    enterprise clients across banking, fintech, payments and e-commerce in
+    Southeast Asia and other emerging markets. All requests authenticate with an
+    access token obtained from the token endpoint and passed in the
+    `X-ACCESS-TOKEN` header. Responses share a common envelope
+    (`code`, `message`, `data`, `transactionId`, `pricingStrategy`).
+    Modeled by API Evangelist from the public documentation at
+    https://doc.advance.ai — no fabricated operations.
+  contact:
+    name: ADVANCE.AI Business Development
+    url: https://advance.ai/contact-us/
+  termsOfService: https://advance.ai/terms-of-service/
+externalDocs:
+  description: ADVANCE.AI API Documentation
+  url: https://doc.advance.ai/
+servers:
+  - url: https://api.advance.ai
+    description: Global production host
+  - url: https://sg-api.advance.ai
+    description: Singapore regional host
+security:
+  - AccessToken: []
+tags:
+  - name: Authentication
+    description: Obtain an access token for calling the Open API.
+  - name: Document Verification
+    description: Global document verification (SDK auth-license + result query).
+  - name: OCR
+    description: Optical character recognition for identity documents.
+  - name: Face Recognition
+    description: Face comparison and biometric matching.
+paths:
+  /openapi/auth/ticket/v1/generate-token:
+    post:
+      tags: [Authentication]
+      operationId: generateToken
+      summary: Generate an access token
+      description: >-
+        Exchange your access key and a request signature for a short-lived
+        access token. The `signature` is the SHA256 hash of
+        `accessKey + secretKey + timestamp`. The returned token is passed on all
+        subsequent requests in the `X-ACCESS-TOKEN` header.
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenerateTokenRequest'
+      responses:
+        '200':
+          description: Token generated (or a business error in the envelope).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenerateTokenResponse'
+  /intl/openapi/face-identity/document-verification/v1/auth-license:
+    post:
+      tags: [Document Verification]
+      operationId: getDocumentVerificationAuthLicense
+      summary: Get a document-verification SDK auth license
+      description: >-
+        Issue a license token authorizing the client SDK to run a document
+        verification session. Optionally scope the license to a set of
+        application IDs and a validity window.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthLicenseRequest'
+      responses:
+        '200':
+          description: License token issued (or a business error in the envelope).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthLicenseResponse'
+  /intl/openapi/face-identity/document-verification/v1/query:
+    post:
+      tags: [Document Verification]
+      operationId: queryDocumentVerification
+      summary: Query a document-verification result
+      description: >-
+        Retrieve the result of a document verification session by its SDK
+        identifier (`IDVID`), including OCR output, ID forgery detection and the
+        captured document images.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DocumentVerificationQueryRequest'
+      responses:
+        '200':
+          description: Verification result (or a business error in the envelope).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DocumentVerificationQueryResponse'
+  /openapi/face-recognition/v3/ocr-ktp-check:
+    post:
+      tags: [OCR]
+      operationId: ocrKtpCheck
+      summary: OCR an identity document (all fields)
+      description: >-
+        Extract structured fields from a photo of an identity card via OCR.
+        Maximum image size 15 MB.
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/OcrKtpRequest'
+      responses:
+        '200':
+          description: OCR result (or a business error in the envelope).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OcrKtpResponse'
+  /openapi/face-recognition/v4/check:
+    post:
+      tags: [Face Recognition]
+      operationId: faceComparison
+      summary: Compare two faces
+      description: >-
+        Compare two photographs and return a similarity score (0-100) plus the
+        detected face position in each image.
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/FaceComparisonRequest'
+      responses:
+        '200':
+          description: Comparison result (or a business error in the envelope).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FaceComparisonResponse'
+components:
+  securitySchemes:
+    AccessToken:
+      type: apiKey
+      in: header
+      name: X-ACCESS-TOKEN
+      description: >-
+        Access token obtained from POST /openapi/auth/ticket/v1/generate-token.
+  schemas:
+    Envelope:
+      type: object
+      description: Common response envelope shared by all ADVANCE.AI Open API operations.
+      properties:
+        code:
+          type: string
+          description: Business status code (e.g. SUCCESS, PARAMETER_ERROR, ACCESS_DENIED).
+          example: SUCCESS
+        message:
+          type: string
+          description: Human-readable explanation of the status code.
+        extra:
+          type: string
+          description: Exception detail, present on some error responses.
+        transactionId:
+          type: string
+          maxLength: 64
+          description: Request identifier echoed back for tracing.
+        pricingStrategy:
+          type: string
+          enum: [FREE, PAY]
+          description: Whether the call was billable.
+      required: [code]
+    GenerateTokenRequest:
+      type: object
+      required: [accessKey, timestamp, signature]
+      properties:
+        accessKey:
+          type: string
+          description: Your account access key.
+        timestamp:
+          type: string
+          description: 13-digit Unix epoch milliseconds.
+        signature:
+          type: string
+          description: SHA256 of accessKey + secretKey + timestamp.
+        periodSecond:
+          type: string
+          description: Token validity in seconds. Default 3600, range 60-86400.
+    GenerateTokenResponse:
+      allOf:
+        - $ref: '#/components/schemas/Envelope'
+        - type: object
+          properties:
+            data:
+              type: object
+              properties:
+                token:
+                  type: string
+                  description: Access token for the X-ACCESS-TOKEN header.
+                expiredTime:
+                  type: integer
+                  format: int64
+                  description: Token expiry as a Unix timestamp.
+    AuthLicenseRequest:
+      type: object
+      properties:
+        licenseEffectiveSeconds:
+          type: integer
+          description: License validity in seconds. Default 600, max 86400.
+        applicationId:
+          type: array
+          items:
+            type: string
+          description: Optional list of application IDs the license is valid for.
+    AuthLicenseResponse:
+      allOf:
+        - $ref: '#/components/schemas/Envelope'
+        - type: object
+          properties:
+            data:
+              type: object
+              properties:
+                license:
+                  type: string
+                  description: License token for the client SDK.
+                expiredTime:
+                  type: integer
+                  format: int64
+    DocumentVerificationQueryRequest:
+      type: object
+      required: [IDVID]
+      properties:
+        IDVID:
+          type: string
+          description: SDK session identifier returned by the client.
+        resultType:
+          type: string
+          enum: [IMAGE_URL, IMAGE_BASE64]
+          description: >-
+            Image return format. IMAGE_URL links are valid for 24 hours;
+            IMAGE_BASE64 returns the raw base64 string.
+    DocumentVerificationQueryResponse:
+      allOf:
+        - $ref: '#/components/schemas/Envelope'
+        - type: object
+          properties:
+            data:
+              type: object
+              description: OCR fields, forgery detection flags and document images.
+    OcrKtpRequest:
+      type: object
+      required: [ocrImage]
+      properties:
+        ocrImage:
+          type: string
+          format: binary
+          description: Photo of the identity card (max 15 MB).
+    OcrKtpResponse:
+      allOf:
+        - $ref: '#/components/schemas/Envelope'
+        - type: object
+          properties:
+            data:
+              type: object
+              properties:
+                idNumber: { type: string }
+                name: { type: string }
+                gender: { type: string }
+                address: { type: string }
+                placeOfBirth: { type: string }
+                birthday: { type: string }
+                province: { type: string }
+                city: { type: string }
+                district: { type: string }
+                village: { type: string }
+                religion: { type: string }
+                maritalStatus: { type: string }
+                occupation: { type: string }
+                nationality: { type: string }
+                expiryDate: { type: string }
+                issueDate: { type: string }
+                placeOfIssue: { type: string }
+    FaceComparisonRequest:
+      type: object
+      required: [firstImage, secondImage]
+      properties:
+        firstImage:
+          type: string
+          format: binary
+          description: First photograph for comparison.
+        secondImage:
+          type: string
+          format: binary
+          description: Second photograph for comparison.
+    FaceComparisonResponse:
+      allOf:
+        - $ref: '#/components/schemas/Envelope'
+        - type: object
+          properties:
+            data:
+              type: object
+              properties:
+                similarity:
+                  type: number
+                  description: Similarity score from 0 to 100.
+                firstFace:
+                  type: object
+                  description: Detected face position in the first image.
+                secondFace:
+                  type: object
+                  description: Detected face position in the second image.

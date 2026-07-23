@@ -1,0 +1,38 @@
+generated: '2026-07-17'
+method: searched
+source: https://advance.ai/security-compliance/
+api: openapi/advance-intelligence-group-advance-ai-openapi.yml
+standards:
+- id: oauth2
+  conforms: false
+  evidence: Auth is a signature-issued apiKey token (X-ACCESS-TOKEN), not OAuth2.
+- id: openid-connect
+  conforms: false
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: Errors use a custom envelope (code/message), not application/problem+json.
+- id: iso-27001
+  conforms: true
+  evidence: ISO/IEC 27001 Information Security Management certified (security-compliance page, BSI).
+- id: iso-27701
+  conforms: true
+  evidence: ISO/IEC 27701 Privacy Information Management certified (security-compliance page).
+- id: pci-dss
+  conforms: true
+  evidence: PCI DSS referenced as a compliance standard on the security-compliance page.
+- id: ibeta-liveness
+  conforms: true
+  evidence: iBeta Level 1 and Level 2 liveness (PAD) certification.
+- id: gdpr
+  conforms: partial
+  evidence: Privacy program aligned to ISO 27701; GDPR referenced for cross-border data handling.
+compliance_program:
+  published: true
+  url: https://advance.ai/security-compliance/
+  certifications:
+  - ISO/IEC 27001
+  - ISO/IEC 27701
+  - iBeta Level 1
+  - iBeta Level 2
+  - PCI DSS
+  security_contact: security@advance.ai

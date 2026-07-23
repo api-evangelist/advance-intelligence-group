@@ -1,0 +1,25 @@
+generated: '2026-07-17'
+method: searched
+note: >-
+  Probed the standard /.well-known/ discovery surface on the API and website
+  hosts. None are published (all 404). Recorded for auditability; no WellKnown
+  pointer is wired because no discovery document was found.
+host: https://api.advance.ai
+documents:
+- path: /.well-known/security.txt
+  status: 404
+- path: /.well-known/openid-configuration
+  status: 404
+- path: /.well-known/oauth-authorization-server
+  status: 404
+- path: /.well-known/api-catalog
+  status: 404
+- path: /.well-known/ai-plugin.json
+  status: 404
+additional_hosts_probed:
+- host: https://advance.ai
+  results:
+  - {path: /.well-known/security.txt, status: 404}
+- host: https://www.advancegroup.com
+  results:
+  - {path: /.well-known/security.txt, status: 404}

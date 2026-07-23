@@ -1,0 +1,20 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for ADVANCE.AI Open API
+  version: 1.0.0
+extends: openapi/advance-intelligence-group-advance-ai-openapi.yml
+actions:
+  - target: $.info
+    update:
+      x-apievangelist-profiled: '2026-07-17'
+      x-apievangelist-category: identity-verification
+      x-apievangelist-parent-company: advance-intelligence-group
+  - target: $.info
+    update:
+      x-auth-model: signature-issued-access-token
+  - target: $.tags
+    update:
+      - name: eKYC
+        description: >-
+          End-to-end electronic Know-Your-Customer flows composed from document
+          verification, OCR and biometric face/liveness checks.

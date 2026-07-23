@@ -1,0 +1,20 @@
+{
+  "provider": "advance-intelligence-group",
+  "sources": [
+    "advance-intelligence-group-authentication-api-openapi.yml",
+    "advance-intelligence-group-document-verification-api-openapi.yml",
+    "advance-intelligence-group-face-recognition-api-openapi.yml",
+    "advance-intelligence-group-ocr-api-openapi.yml"
+  ],
+  "outputs": [
+    "advance-intelligence-group-authentication-api-openapi.yml",
+    "advance-intelligence-group-document-verification-api-openapi.yml",
+    "advance-intelligence-group-face-recognition-api-openapi.yml",
+    "advance-intelligence-group-ocr-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

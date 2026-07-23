@@ -1,0 +1,31 @@
+generated: '2026-07-17'
+method: derived
+source: openapi/advance-intelligence-group-advance-ai-openapi.yml
+entities:
+- name: AccessToken
+  description: Short-lived bearer credential issued from accessKey + signature.
+  key_fields: [token, expiredTime]
+- name: DocumentVerification
+  description: A document-verification session identified by IDVID.
+  key_fields: [IDVID]
+  relationships:
+  - type: has_one
+    target: AuthLicense
+    via: license
+  - type: has_one
+    target: OcrResult
+    via: data
+- name: AuthLicense
+  description: SDK license authorizing a client verification session.
+  key_fields: [license, expiredTime]
+- name: OcrResult
+  description: Structured fields extracted from an identity document.
+  key_fields: [idNumber, name]
+- name: FaceComparison
+  description: Similarity result between two face images.
+  key_fields: [similarity, firstFace, secondFace]
+notes:
+- >-
+  The API is task/verb oriented (verify, compare, extract) rather than
+  resource-CRUD; entities above are the response payloads, correlated by the
+  envelope transactionId.

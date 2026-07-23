@@ -1,0 +1,12 @@
+generated: '2026-07-17'
+method: generated
+source: openapi/advance-intelligence-group-advance-ai-openapi.yml
+skills:
+- file: advance-intelligence-group-verify-identity-document.md
+  name: Verify an identity document (eKYC)
+  api: openapi/advance-intelligence-group-advance-ai-openapi.yml
+  operations: [generateToken, getDocumentVerificationAuthLicense, queryDocumentVerification]
+- file: advance-intelligence-group-face-and-ocr-check.md
+  name: OCR an ID and match the holder's face
+  api: openapi/advance-intelligence-group-advance-ai-openapi.yml
+  operations: [generateToken, ocrKtpCheck, faceComparison]

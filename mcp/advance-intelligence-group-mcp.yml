@@ -1,0 +1,27 @@
+generated: '2026-07-17'
+method: derived
+status: candidate
+source: openapi/advance-intelligence-group-advance-ai-openapi.yml
+note: >-
+  No official ADVANCE.AI MCP server found (searched provider docs, npm
+  @modelcontextprotocol, MCP registries). Tools below are a candidate surface
+  derived one-per-operation from the OpenAPI, for a future MCP wrapper.
+server:
+  name: advance-ai
+  transport: http
+tools:
+- name: generate_token
+  description: Exchange accessKey + signature for a short-lived access token.
+  source_operation: openapi/advance-intelligence-group-advance-ai-openapi.yml#generateToken
+- name: get_document_verification_auth_license
+  description: Issue an SDK auth license for a document verification session.
+  source_operation: openapi/advance-intelligence-group-advance-ai-openapi.yml#getDocumentVerificationAuthLicense
+- name: query_document_verification
+  description: Retrieve a document verification result by IDVID.
+  source_operation: openapi/advance-intelligence-group-advance-ai-openapi.yml#queryDocumentVerification
+- name: ocr_ktp_check
+  description: Extract structured fields from an identity-document image via OCR.
+  source_operation: openapi/advance-intelligence-group-advance-ai-openapi.yml#ocrKtpCheck
+- name: face_comparison
+  description: Compare two face images and return a similarity score.
+  source_operation: openapi/advance-intelligence-group-advance-ai-openapi.yml#faceComparison

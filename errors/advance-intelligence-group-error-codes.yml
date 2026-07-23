@@ -1,0 +1,56 @@
+generated: '2026-07-17'
+method: searched
+source: https://doc.advance.ai/global_document_verification.html
+api: openapi/advance-intelligence-group-advance-ai-openapi.yml
+envelope:
+  code_field: code
+  message_field: message
+  extra_field: extra
+  transport: HTTP 200 with business code in `code`; SUCCESS means approved.
+  billing_field: pricingStrategy
+error_codes:
+- code: SUCCESS
+  meaning: Request approved and processed (may be billable).
+  pricing: PAY
+- code: PARAMETER_ERROR
+  meaning: Invalid or missing request parameters.
+  pricing: FREE
+- code: ACCESS_DENIED
+  meaning: Authentication failed / token invalid.
+  pricing: FREE
+- code: ACCOUNT_DISABLED
+  meaning: Account is restricted or disabled.
+  pricing: FREE
+- code: SERVICE_DISABLED
+  meaning: The requested service is not enabled for this account.
+  pricing: FREE
+- code: INSUFFICIENT_BALANCE
+  meaning: Account balance too low to complete a billable call.
+  pricing: FREE
+- code: CLIENT_ERROR
+  meaning: Generic client-side error (token generation).
+  pricing: FREE
+- code: IDVID_NOT_EXISTS
+  meaning: The supplied document-verification IDVID is invalid or expired.
+  pricing: FREE
+- code: IMAGE_INVALID_FORMAT
+  meaning: Uploaded image is not an accepted format.
+  pricing: FREE
+- code: IMAGE_INVALID_SIZE
+  meaning: Uploaded image exceeds the size limit (OCR max 15 MB).
+  pricing: FREE
+- code: OCR_NO_RESULT
+  meaning: OCR could not extract fields from the document image.
+  pricing: PAY
+- code: NO_FACE_DETECTED_FROM_FIRST_IMAGE
+  meaning: No face detected in the first face-comparison image.
+  pricing: PAY
+- code: NO_FACE_DETECTED_FROM_SECOND_IMAGE
+  meaning: No face detected in the second face-comparison image.
+  pricing: PAY
+- code: FIRST_IMAGE_LOW_QUALITY_FACE
+  meaning: Face in the first image is too low quality to compare.
+  pricing: PAY
+- code: SECOND_IMAGE_LOW_QUALITY_FACE
+  meaning: Face in the second image is too low quality to compare.
+  pricing: PAY

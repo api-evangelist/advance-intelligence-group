@@ -1,0 +1,48 @@
+generated: '2026-07-17'
+method: searched
+source: https://doc.advance.ai/liveness_detection.html
+note: >-
+  ADVANCE.AI distributes first-party mobile client SDKs for its Liveness
+  Detection and Document Verification products (Android and iOS), documented at
+  doc.advance.ai. They are vendor-distributed (SDK downloads / integration
+  guides), not published to public package registries (npm/PyPI/Maven Central).
+  No first-party libraries were found on npm, PyPI, Maven Central, NuGet,
+  pkg.go.dev, RubyGems, Packagist or crates.io.
+packages:
+- language: kotlin
+  platform: android
+  registry: vendor
+  name: ADVANCE.AI Liveness Detection SDK (Android)
+  url: https://doc.advance.ai/liveness_detection.html
+  install: Vendor SDK download + integration guide (standard / Cordova / React Native)
+  official: true
+- language: swift
+  platform: ios
+  registry: vendor
+  name: ADVANCE.AI Liveness Detection SDK (iOS)
+  url: https://doc.advance.ai/liveness_detection.html
+  install: Vendor SDK download (iOS SDK v1.0.8+)
+  official: true
+- language: kotlin
+  platform: android
+  registry: vendor
+  name: ADVANCE.AI Document Verification SDK (Android)
+  url: https://doc.advance.ai/global_document_verification.html
+  install: Vendor SDK download + integration guide
+  official: true
+- language: swift
+  platform: ios
+  registry: vendor
+  name: ADVANCE.AI Document Verification SDK (iOS)
+  url: https://doc.advance.ai/global_document_verification.html
+  install: Vendor SDK download
+  official: true
+registries_checked:
+  npm: none
+  pypi: none
+  maven_central: none
+  nuget: none
+  go: none
+  rubygems: none
+  packagist: none
+  crates: none

@@ -1,0 +1,23 @@
+generated: '2026-07-17'
+method: searched
+source: https://doc.advance.ai/
+api: openapi/advance-intelligence-group-advance-ai-openapi.yml
+versioning:
+  scheme: uri-path
+  observed_versions:
+  - v1
+  - v3
+  - v4
+  docs: https://doc.advance.ai/
+  note: >-
+    Each product family carries its own major version in the path
+    (e.g. /openapi/face-recognition/v3/ vs /v4/). No global API version.
+deprecation:
+  policy_url: null
+  sunset_header: false
+  note: No public deprecation policy or RFC 8594 Sunset/Deprecation header documented.
+status_page: null
+sla:
+  url: null
+  note: SLA handled per enterprise contract; no public status page found.
+deprecated_operations: []

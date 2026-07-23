@@ -1,0 +1,128 @@
+openapi: 3.0.3
+info:
+  title: ADVANCE.AI Open Authentication OCR API
+  version: '1.0'
+  description: ADVANCE.AI is the digital identity verification, KYC/KYB, AML and risk management business unit of Advance Intelligence Group. Its Open API surface provides eKYC building blocks — token authentication, document verification, OCR field extraction, face comparison and liveness detection — used by 500+ enterprise clients across banking, fintech, payments and e-commerce in Southeast Asia and other emerging markets. All requests authenticate with an access token obtained from the token endpoint and passed in the `X-ACCESS-TOKEN` header. Responses share a common envelope (`code`, `message`, `data`, `transactionId`, `pricingStrategy`). Modeled by API Evangelist from the public documentation at https://doc.advance.ai — no fabricated operations.
+  contact:
+    name: ADVANCE.AI Business Development
+    url: https://advance.ai/contact-us/
+  termsOfService: https://advance.ai/terms-of-service/
+servers:
+- url: https://api.advance.ai
+  description: Global production host
+- url: https://sg-api.advance.ai
+  description: Singapore regional host
+security:
+- AccessToken: []
+tags:
+- name: OCR
+  description: Optical character recognition for identity documents.
+paths:
+  /openapi/face-recognition/v3/ocr-ktp-check:
+    post:
+      tags:
+      - OCR
+      operationId: ocrKtpCheck
+      summary: OCR an identity document (all fields)
+      description: Extract structured fields from a photo of an identity card via OCR. Maximum image size 15 MB.
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/OcrKtpRequest'
+      responses:
+        '200':
+          description: OCR result (or a business error in the envelope).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OcrKtpResponse'
+components:
+  schemas:
+    Envelope:
+      type: object
+      description: Common response envelope shared by all ADVANCE.AI Open API operations.
+      properties:
+        code:
+          type: string
+          description: Business status code (e.g. SUCCESS, PARAMETER_ERROR, ACCESS_DENIED).
+          example: SUCCESS
+        message:
+          type: string
+          description: Human-readable explanation of the status code.
+        extra:
+          type: string
+          description: Exception detail, present on some error responses.
+        transactionId:
+          type: string
+          maxLength: 64
+          description: Request identifier echoed back for tracing.
+        pricingStrategy:
+          type: string
+          enum:
+          - FREE
+          - PAY
+          description: Whether the call was billable.
+      required:
+      - code
+    OcrKtpRequest:
+      type: object
+      required:
+      - ocrImage
+      properties:
+        ocrImage:
+          type: string
+          format: binary
+          description: Photo of the identity card (max 15 MB).
+    OcrKtpResponse:
+      allOf:
+      - $ref: '#/components/schemas/Envelope'
+      - type: object
+        properties:
+          data:
+            type: object
+            properties:
+              idNumber:
+                type: string
+              name:
+                type: string
+              gender:
+                type: string
+              address:
+                type: string
+              placeOfBirth:
+                type: string
+              birthday:
+                type: string
+              province:
+                type: string
+              city:
+                type: string
+              district:
+                type: string
+              village:
+                type: string
+              religion:
+                type: string
+              maritalStatus:
+                type: string
+              occupation:
+                type: string
+              nationality:
+                type: string
+              expiryDate:
+                type: string
+              issueDate:
+                type: string
+              placeOfIssue:
+                type: string
+  securitySchemes:
+    AccessToken:
+      type: apiKey
+      in: header
+      name: X-ACCESS-TOKEN
+      description: Access token obtained from POST /openapi/auth/ticket/v1/generate-token.
+externalDocs:
+  description: ADVANCE.AI API Documentation
+  url: https://doc.advance.ai/
