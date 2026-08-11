@@ -109,6 +109,8 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: Overlay
+  url: overlays/advance-intelligence-group-advance-ai-overlay.yaml
 - type: DomainSecurity
   url: security/advance-intelligence-group-domain-security.yml
 - type: DeveloperPortal
