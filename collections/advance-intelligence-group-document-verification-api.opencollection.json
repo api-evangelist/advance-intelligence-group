@@ -1,0 +1,56 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "ADVANCE.AI Open Authentication Document Verification API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-ACCESS-TOKEN",
+      "value": "{{X-ACCESS-TOKEN}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Document Verification",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get a document-verification SDK auth license",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.advance.ai/intl/openapi/face-identity/document-verification/v1/auth-license",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Issue a license token authorizing the client SDK to run a document verification session. Optionally scope the license to a set of application IDs and a validity window."
+        },
+        {
+          "info": {
+            "name": "Query a document-verification result",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.advance.ai/intl/openapi/face-identity/document-verification/v1/query",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Retrieve the result of a document verification session by its SDK identifier (`IDVID`), including OCR output, ID forgery detection and the captured document images."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

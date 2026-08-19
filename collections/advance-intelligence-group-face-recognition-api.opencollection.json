@@ -1,0 +1,41 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "ADVANCE.AI Open Authentication Face Recognition API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-ACCESS-TOKEN",
+      "value": "{{X-ACCESS-TOKEN}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Face Recognition",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Compare two faces",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.advance.ai/openapi/face-recognition/v4/check",
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            }
+          },
+          "docs": "Compare two photographs and return a similarity score (0-100) plus the detected face position in each image."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

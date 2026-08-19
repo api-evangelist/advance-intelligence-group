@@ -1,0 +1,174 @@
+{
+  "item": [
+    {
+      "id": "9b946f31-331d-44c9-a8ec-f6d931e876ac",
+      "name": "Face Recognition",
+      "description": {
+        "content": "Face comparison and biometric matching.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "6f4cfe3d-e5be-4568-84d6-0c08a049dc96",
+          "name": "Compare two faces",
+          "request": {
+            "name": "Compare two faces",
+            "description": {
+              "content": "Compare two photographs and return a similarity score (0-100) plus the detected face position in each image.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "openapi",
+                "face-recognition",
+                "v4",
+                "check"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "multipart/form-data"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "firstImage",
+                  "type": "file",
+                  "description": "(Required) First photograph for comparison."
+                },
+                {
+                  "key": "secondImage",
+                  "type": "file",
+                  "description": "(Required) Second photograph for comparison."
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "92eb8e2e-275f-464c-85fb-a895d630add5",
+              "name": "Comparison result (or a business error in the envelope).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "openapi",
+                    "face-recognition",
+                    "v4",
+                    "check"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-ACCESS-TOKEN",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) First photograph for comparison.",
+                        "type": "text/plain"
+                      },
+                      "key": "firstImage",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) Second photograph for comparison.",
+                        "type": "text/plain"
+                      },
+                      "key": "secondImage",
+                      "value": "<binary>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"SUCCESS\",\n  \"message\": \"string\",\n  \"extra\": \"string\",\n  \"transactionId\": \"string\",\n  \"pricingStrategy\": \"FREE\",\n  \"data\": {\n    \"similarity\": 2766.551462026315,\n    \"firstFace\": {},\n    \"secondFace\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.advance.ai",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-ACCESS-TOKEN"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "71d195bb-f750-4286-b555-1decc4623d19",
+    "name": "ADVANCE.AI Open Authentication Face Recognition API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "ADVANCE.AI is the digital identity verification, KYC/KYB, AML and risk management business unit of Advance Intelligence Group. Its Open API surface provides eKYC building blocks — token authentication, document verification, OCR field extraction, face comparison and liveness detection — used by 500+ enterprise clients across banking, fintech, payments and e-commerce in Southeast Asia and other emerging markets. All requests authenticate with an access token obtained from the token endpoint and passed in the `X-ACCESS-TOKEN` header. Responses share a common envelope (`code`, `message`, `data`, `transactionId`, `pricingStrategy`). Modeled by API Evangelist from the public documentation at https://doc.advance.ai — no fabricated operations.\n\nContact Support:\n Name: ADVANCE.AI Business Development",
+      "type": "text/plain"
+    }
+  }
+}

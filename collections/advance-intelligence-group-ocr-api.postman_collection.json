@@ -1,0 +1,160 @@
+{
+  "item": [
+    {
+      "id": "c361ef91-6fcf-4c90-8ead-f953bf9c2971",
+      "name": "OCR",
+      "description": {
+        "content": "Optical character recognition for identity documents.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "650b7bac-85e1-42cf-a5ee-29bfec72770a",
+          "name": "OCR an identity document (all fields)",
+          "request": {
+            "name": "OCR an identity document (all fields)",
+            "description": {
+              "content": "Extract structured fields from a photo of an identity card via OCR. Maximum image size 15 MB.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "openapi",
+                "face-recognition",
+                "v3",
+                "ocr-ktp-check"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "multipart/form-data"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "ocrImage",
+                  "type": "file",
+                  "description": "(Required) Photo of the identity card (max 15 MB)."
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "60c0eee4-0616-491f-876e-2757b6b8cdc2",
+              "name": "OCR result (or a business error in the envelope).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "openapi",
+                    "face-recognition",
+                    "v3",
+                    "ocr-ktp-check"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-ACCESS-TOKEN",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) Photo of the identity card (max 15 MB).",
+                        "type": "text/plain"
+                      },
+                      "key": "ocrImage",
+                      "value": "<binary>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"SUCCESS\",\n  \"message\": \"string\",\n  \"extra\": \"string\",\n  \"transactionId\": \"string\",\n  \"pricingStrategy\": \"FREE\",\n  \"data\": {\n    \"idNumber\": \"string\",\n    \"name\": \"string\",\n    \"gender\": \"string\",\n    \"address\": \"string\",\n    \"placeOfBirth\": \"string\",\n    \"birthday\": \"string\",\n    \"province\": \"string\",\n    \"city\": \"string\",\n    \"district\": \"string\",\n    \"village\": \"string\",\n    \"religion\": \"string\",\n    \"maritalStatus\": \"string\",\n    \"occupation\": \"string\",\n    \"nationality\": \"string\",\n    \"expiryDate\": \"string\",\n    \"issueDate\": \"string\",\n    \"placeOfIssue\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.advance.ai",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-ACCESS-TOKEN"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "a23afeba-88eb-46ae-8dc2-023ea17980f7",
+    "name": "ADVANCE.AI Open Authentication OCR API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "ADVANCE.AI is the digital identity verification, KYC/KYB, AML and risk management business unit of Advance Intelligence Group. Its Open API surface provides eKYC building blocks — token authentication, document verification, OCR field extraction, face comparison and liveness detection — used by 500+ enterprise clients across banking, fintech, payments and e-commerce in Southeast Asia and other emerging markets. All requests authenticate with an access token obtained from the token endpoint and passed in the `X-ACCESS-TOKEN` header. Responses share a common envelope (`code`, `message`, `data`, `transactionId`, `pricingStrategy`). Modeled by API Evangelist from the public documentation at https://doc.advance.ai — no fabricated operations.\n\nContact Support:\n Name: ADVANCE.AI Business Development",
+      "type": "text/plain"
+    }
+  }
+}

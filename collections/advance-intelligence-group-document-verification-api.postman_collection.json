@@ -1,0 +1,267 @@
+{
+  "item": [
+    {
+      "id": "8bf171aa-895a-4363-85d4-80b0b176aded",
+      "name": "Document Verification",
+      "description": {
+        "content": "Global document verification (SDK auth-license + result query).",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "4a24752a-d7bc-41cd-a00b-2c5f73a76393",
+          "name": "Get a document-verification SDK auth license",
+          "request": {
+            "name": "Get a document-verification SDK auth license",
+            "description": {
+              "content": "Issue a license token authorizing the client SDK to run a document verification session. Optionally scope the license to a set of application IDs and a validity window.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "intl",
+                "openapi",
+                "face-identity",
+                "document-verification",
+                "v1",
+                "auth-license"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"licenseEffectiveSeconds\": \"<integer>\",\n  \"applicationId\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "2bf8bb50-7f26-4787-ac6c-8a683fcddebb",
+              "name": "License token issued (or a business error in the envelope).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "intl",
+                    "openapi",
+                    "face-identity",
+                    "document-verification",
+                    "v1",
+                    "auth-license"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-ACCESS-TOKEN",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"licenseEffectiveSeconds\": \"<integer>\",\n  \"applicationId\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"SUCCESS\",\n  \"message\": \"string\",\n  \"extra\": \"string\",\n  \"transactionId\": \"string\",\n  \"pricingStrategy\": \"FREE\",\n  \"data\": {\n    \"license\": \"string\",\n    \"expiredTime\": 3414\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "632f14c6-ede7-456e-955d-ae4776737f8e",
+          "name": "Query a document-verification result",
+          "request": {
+            "name": "Query a document-verification result",
+            "description": {
+              "content": "Retrieve the result of a document verification session by its SDK identifier (`IDVID`), including OCR output, ID forgery detection and the captured document images.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "intl",
+                "openapi",
+                "face-identity",
+                "document-verification",
+                "v1",
+                "query"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"IDVID\": \"<string>\",\n  \"resultType\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ef1f6650-ab5c-4223-96ed-f13db642b8be",
+              "name": "Verification result (or a business error in the envelope).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "intl",
+                    "openapi",
+                    "face-identity",
+                    "document-verification",
+                    "v1",
+                    "query"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-ACCESS-TOKEN",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"IDVID\": \"<string>\",\n  \"resultType\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"SUCCESS\",\n  \"message\": \"string\",\n  \"extra\": \"string\",\n  \"transactionId\": \"string\",\n  \"pricingStrategy\": \"FREE\",\n  \"data\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.advance.ai",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-ACCESS-TOKEN"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "2680b3f7-a48d-4649-90c1-e70b8046c599",
+    "name": "ADVANCE.AI Open Authentication Document Verification API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "ADVANCE.AI is the digital identity verification, KYC/KYB, AML and risk management business unit of Advance Intelligence Group. Its Open API surface provides eKYC building blocks — token authentication, document verification, OCR field extraction, face comparison and liveness detection — used by 500+ enterprise clients across banking, fintech, payments and e-commerce in Southeast Asia and other emerging markets. All requests authenticate with an access token obtained from the token endpoint and passed in the `X-ACCESS-TOKEN` header. Responses share a common envelope (`code`, `message`, `data`, `transactionId`, `pricingStrategy`). Modeled by API Evangelist from the public documentation at https://doc.advance.ai — no fabricated operations.\n\nContact Support:\n Name: ADVANCE.AI Business Development",
+      "type": "text/plain"
+    }
+  }
+}

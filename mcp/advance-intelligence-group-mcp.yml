@@ -2,10 +2,9 @@ generated: '2026-07-17'
 method: derived
 status: candidate
 source: openapi/advance-intelligence-group-advance-ai-openapi.yml
-note: >-
-  No official ADVANCE.AI MCP server found (searched provider docs, npm
-  @modelcontextprotocol, MCP registries). Tools below are a candidate surface
-  derived one-per-operation from the OpenAPI, for a future MCP wrapper.
+note: No official ADVANCE.AI MCP server found (searched provider docs, npm @modelcontextprotocol, MCP
+  registries). Tools below are a candidate surface derived one-per-operation from the OpenAPI, for a future
+  MCP wrapper.
 server:
   name: advance-ai
   transport: http
@@ -25,3 +24,9 @@ tools:
 - name: face_comparison
   description: Compare two face images and return a similarity score.
   source_operation: openapi/advance-intelligence-group-advance-ai-openapi.yml#faceComparison
+deployment:
+  mode: none
+  verified: derived
+  tools: 5
+  checked: '2026-08-12'
+  source: catalog MCP census

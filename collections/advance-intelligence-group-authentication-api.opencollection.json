@@ -1,0 +1,41 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "ADVANCE.AI Open Authentication API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-ACCESS-TOKEN",
+      "value": "{{X-ACCESS-TOKEN}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Authentication",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Generate an access token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.advance.ai/openapi/auth/ticket/v1/generate-token",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Exchange your access key and a request signature for a short-lived access token. The `signature` is the SHA256 hash of `accessKey + secretKey + timestamp`. The returned token is passed on all subsequent requests in the `X-ACCESS-TOKEN` header."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

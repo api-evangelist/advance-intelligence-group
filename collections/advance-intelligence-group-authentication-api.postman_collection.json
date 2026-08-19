@@ -1,0 +1,156 @@
+{
+  "item": [
+    {
+      "id": "efb130f1-0a92-4c2a-b7d8-c55bc629b9f3",
+      "name": "Authentication",
+      "description": {
+        "content": "Obtain an access token for calling the Open API.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "7e3a2de9-cc9f-4b6a-8b03-4eeb4325249b",
+          "name": "Generate an access token",
+          "request": {
+            "name": "Generate an access token",
+            "description": {
+              "content": "Exchange your access key and a request signature for a short-lived access token. The `signature` is the SHA256 hash of `accessKey + secretKey + timestamp`. The returned token is passed on all subsequent requests in the `X-ACCESS-TOKEN` header.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "openapi",
+                "auth",
+                "ticket",
+                "v1",
+                "generate-token"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"accessKey\": \"<string>\",\n  \"timestamp\": \"<string>\",\n  \"signature\": \"<string>\",\n  \"periodSecond\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "76b461a9-ed9b-48ea-bbff-ec627870a3e8",
+              "name": "Token generated (or a business error in the envelope).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "openapi",
+                    "auth",
+                    "ticket",
+                    "v1",
+                    "generate-token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-ACCESS-TOKEN",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"accessKey\": \"<string>\",\n  \"timestamp\": \"<string>\",\n  \"signature\": \"<string>\",\n  \"periodSecond\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"SUCCESS\",\n  \"message\": \"string\",\n  \"extra\": \"string\",\n  \"transactionId\": \"string\",\n  \"pricingStrategy\": \"PAY\",\n  \"data\": {\n    \"token\": \"string\",\n    \"expiredTime\": 3626\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.advance.ai",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-ACCESS-TOKEN"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "9abb0821-5c8e-48be-b134-b27004d63290",
+    "name": "ADVANCE.AI Open Authentication API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "ADVANCE.AI is the digital identity verification, KYC/KYB, AML and risk management business unit of Advance Intelligence Group. Its Open API surface provides eKYC building blocks — token authentication, document verification, OCR field extraction, face comparison and liveness detection — used by 500+ enterprise clients across banking, fintech, payments and e-commerce in Southeast Asia and other emerging markets. All requests authenticate with an access token obtained from the token endpoint and passed in the `X-ACCESS-TOKEN` header. Responses share a common envelope (`code`, `message`, `data`, `transactionId`, `pricingStrategy`). Modeled by API Evangelist from the public documentation at https://doc.advance.ai — no fabricated operations.\n\nContact Support:\n Name: ADVANCE.AI Business Development",
+      "type": "text/plain"
+    }
+  }
+}
