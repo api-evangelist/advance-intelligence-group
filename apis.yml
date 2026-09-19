@@ -48,6 +48,9 @@ x-tier-reason: portfolio-lead-enriched
 specificationVersion: '0.23'
 created: '2026-07-17'
 modified: '2026-07-17'
+x-docs-platform: slate
+x-docs-platform-confidence: medium
+x-docs-platform-checked: 2026-09-17
 tags:
 - Company
 - Fintech
