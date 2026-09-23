@@ -1,10 +1,7 @@
 {
   "provider": "advance-intelligence-group",
   "sources": [
-    "advance-intelligence-group-authentication-api-openapi.yml",
-    "advance-intelligence-group-document-verification-api-openapi.yml",
-    "advance-intelligence-group-face-recognition-api-openapi.yml",
-    "advance-intelligence-group-ocr-api-openapi.yml"
+    "_original/advance-intelligence-group-advance-ai-openapi.yml"
   ],
   "outputs": [
     "advance-intelligence-group-authentication-api-openapi.yml",
@@ -15,6 +12,15 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "advance-intelligence-group-advance-ai-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "advance-intelligence-group-authentication-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "advance-intelligence-group-document-verification-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "advance-intelligence-group-face-recognition-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "advance-intelligence-group-ocr-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

@@ -1,8 +1,8 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: ADVANCE.AI Open Authentication Document Verification API
+  title: ADVANCE.AI Open Document Verification API
   version: '1.0'
-  description: ADVANCE.AI is the digital identity verification, KYC/KYB, AML and risk management business unit of Advance Intelligence Group. Its Open API surface provides eKYC building blocks — token authentication, document verification, OCR field extraction, face comparison and liveness detection — used by 500+ enterprise clients across banking, fintech, payments and e-commerce in Southeast Asia and other emerging markets. All requests authenticate with an access token obtained from the token endpoint and passed in the `X-ACCESS-TOKEN` header. Responses share a common envelope (`code`, `message`, `data`, `transactionId`, `pricingStrategy`). Modeled by API Evangelist from the public documentation at https://doc.advance.ai — no fabricated operations.
+  description: ADVANCE.AI is the digital identity verification, KYC/KYB, AML and risk management business unit of Advance Intelligence Group.
   contact:
     name: ADVANCE.AI Business Development
     url: https://advance.ai/contact-us/
@@ -60,20 +60,6 @@ paths:
                 $ref: '#/components/schemas/DocumentVerificationQueryResponse'
 components:
   schemas:
-    AuthLicenseResponse:
-      allOf:
-      - $ref: '#/components/schemas/Envelope'
-      - type: object
-        properties:
-          data:
-            type: object
-            properties:
-              license:
-                type: string
-                description: License token for the client SDK.
-              expiredTime:
-                type: integer
-                format: int64
     DocumentVerificationQueryRequest:
       type: object
       required:
@@ -88,6 +74,39 @@ components:
           - IMAGE_URL
           - IMAGE_BASE64
           description: Image return format. IMAGE_URL links are valid for 24 hours; IMAGE_BASE64 returns the raw base64 string.
+    AuthLicenseResponse:
+      allOf:
+      - $ref: '#/components/schemas/Envelope'
+      - type: object
+        properties:
+          data:
+            type: object
+            properties:
+              license:
+                type: string
+                description: License token for the client SDK.
+              expiredTime:
+                type: integer
+                format: int64
+    DocumentVerificationQueryResponse:
+      allOf:
+      - $ref: '#/components/schemas/Envelope'
+      - type: object
+        properties:
+          data:
+            type: object
+            description: OCR fields, forgery detection flags and document images.
+    AuthLicenseRequest:
+      type: object
+      properties:
+        licenseEffectiveSeconds:
+          type: integer
+          description: License validity in seconds. Default 600, max 86400.
+        applicationId:
+          type: array
+          items:
+            type: string
+          description: Optional list of application IDs the license is valid for.
     Envelope:
       type: object
       description: Common response envelope shared by all ADVANCE.AI Open API operations.
@@ -114,25 +133,6 @@ components:
           description: Whether the call was billable.
       required:
       - code
-    AuthLicenseRequest:
-      type: object
-      properties:
-        licenseEffectiveSeconds:
-          type: integer
-          description: License validity in seconds. Default 600, max 86400.
-        applicationId:
-          type: array
-          items:
-            type: string
-          description: Optional list of application IDs the license is valid for.
-    DocumentVerificationQueryResponse:
-      allOf:
-      - $ref: '#/components/schemas/Envelope'
-      - type: object
-        properties:
-          data:
-            type: object
-            description: OCR fields, forgery detection flags and document images.
   securitySchemes:
     AccessToken:
       type: apiKey
