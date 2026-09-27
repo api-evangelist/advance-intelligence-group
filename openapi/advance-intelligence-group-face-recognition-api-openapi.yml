@@ -40,20 +40,6 @@ paths:
                 $ref: '#/components/schemas/FaceComparisonResponse'
 components:
   schemas:
-    FaceComparisonRequest:
-      type: object
-      required:
-      - firstImage
-      - secondImage
-      properties:
-        firstImage:
-          type: string
-          format: binary
-          description: First photograph for comparison.
-        secondImage:
-          type: string
-          format: binary
-          description: Second photograph for comparison.
     Envelope:
       type: object
       description: Common response envelope shared by all ADVANCE.AI Open API operations.
@@ -97,6 +83,20 @@ components:
               secondFace:
                 type: object
                 description: Detected face position in the second image.
+    FaceComparisonRequest:
+      type: object
+      required:
+      - firstImage
+      - secondImage
+      properties:
+        firstImage:
+          type: string
+          format: binary
+          description: First photograph for comparison.
+        secondImage:
+          type: string
+          format: binary
+          description: Second photograph for comparison.
   securitySchemes:
     AccessToken:
       type: apiKey

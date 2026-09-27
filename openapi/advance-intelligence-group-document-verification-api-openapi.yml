@@ -60,20 +60,6 @@ paths:
                 $ref: '#/components/schemas/DocumentVerificationQueryResponse'
 components:
   schemas:
-    DocumentVerificationQueryRequest:
-      type: object
-      required:
-      - IDVID
-      properties:
-        IDVID:
-          type: string
-          description: SDK session identifier returned by the client.
-        resultType:
-          type: string
-          enum:
-          - IMAGE_URL
-          - IMAGE_BASE64
-          description: Image return format. IMAGE_URL links are valid for 24 hours; IMAGE_BASE64 returns the raw base64 string.
     AuthLicenseResponse:
       allOf:
       - $ref: '#/components/schemas/Envelope'
@@ -88,14 +74,6 @@ components:
               expiredTime:
                 type: integer
                 format: int64
-    DocumentVerificationQueryResponse:
-      allOf:
-      - $ref: '#/components/schemas/Envelope'
-      - type: object
-        properties:
-          data:
-            type: object
-            description: OCR fields, forgery detection flags and document images.
     AuthLicenseRequest:
       type: object
       properties:
@@ -133,6 +111,28 @@ components:
           description: Whether the call was billable.
       required:
       - code
+    DocumentVerificationQueryResponse:
+      allOf:
+      - $ref: '#/components/schemas/Envelope'
+      - type: object
+        properties:
+          data:
+            type: object
+            description: OCR fields, forgery detection flags and document images.
+    DocumentVerificationQueryRequest:
+      type: object
+      required:
+      - IDVID
+      properties:
+        IDVID:
+          type: string
+          description: SDK session identifier returned by the client.
+        resultType:
+          type: string
+          enum:
+          - IMAGE_URL
+          - IMAGE_BASE64
+          description: Image return format. IMAGE_URL links are valid for 24 hours; IMAGE_BASE64 returns the raw base64 string.
   securitySchemes:
     AccessToken:
       type: apiKey

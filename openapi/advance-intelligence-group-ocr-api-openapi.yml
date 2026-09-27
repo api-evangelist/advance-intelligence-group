@@ -40,15 +40,6 @@ paths:
                 $ref: '#/components/schemas/OcrKtpResponse'
 components:
   schemas:
-    OcrKtpRequest:
-      type: object
-      required:
-      - ocrImage
-      properties:
-        ocrImage:
-          type: string
-          format: binary
-          description: Photo of the identity card (max 15 MB).
     Envelope:
       type: object
       description: Common response envelope shared by all ADVANCE.AI Open API operations.
@@ -117,6 +108,15 @@ components:
                 type: string
               placeOfIssue:
                 type: string
+    OcrKtpRequest:
+      type: object
+      required:
+      - ocrImage
+      properties:
+        ocrImage:
+          type: string
+          format: binary
+          description: Photo of the identity card (max 15 MB).
   securitySchemes:
     AccessToken:
       type: apiKey

@@ -41,21 +41,6 @@ paths:
                 $ref: '#/components/schemas/GenerateTokenResponse'
 components:
   schemas:
-    GenerateTokenResponse:
-      allOf:
-      - $ref: '#/components/schemas/Envelope'
-      - type: object
-        properties:
-          data:
-            type: object
-            properties:
-              token:
-                type: string
-                description: Access token for the X-ACCESS-TOKEN header.
-              expiredTime:
-                type: integer
-                format: int64
-                description: Token expiry as a Unix timestamp.
     Envelope:
       type: object
       description: Common response envelope shared by all ADVANCE.AI Open API operations.
@@ -101,6 +86,21 @@ components:
         periodSecond:
           type: string
           description: Token validity in seconds. Default 3600, range 60-86400.
+    GenerateTokenResponse:
+      allOf:
+      - $ref: '#/components/schemas/Envelope'
+      - type: object
+        properties:
+          data:
+            type: object
+            properties:
+              token:
+                type: string
+                description: Access token for the X-ACCESS-TOKEN header.
+              expiredTime:
+                type: integer
+                format: int64
+                description: Token expiry as a Unix timestamp.
   securitySchemes:
     AccessToken:
       type: apiKey
