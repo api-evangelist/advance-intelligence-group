@@ -60,6 +60,17 @@ paths:
                 $ref: '#/components/schemas/DocumentVerificationQueryResponse'
 components:
   schemas:
+    AuthLicenseRequest:
+      type: object
+      properties:
+        licenseEffectiveSeconds:
+          type: integer
+          description: License validity in seconds. Default 600, max 86400.
+        applicationId:
+          type: array
+          items:
+            type: string
+          description: Optional list of application IDs the license is valid for.
     AuthLicenseResponse:
       allOf:
       - $ref: '#/components/schemas/Envelope'
@@ -74,17 +85,6 @@ components:
               expiredTime:
                 type: integer
                 format: int64
-    AuthLicenseRequest:
-      type: object
-      properties:
-        licenseEffectiveSeconds:
-          type: integer
-          description: License validity in seconds. Default 600, max 86400.
-        applicationId:
-          type: array
-          items:
-            type: string
-          description: Optional list of application IDs the license is valid for.
     Envelope:
       type: object
       description: Common response envelope shared by all ADVANCE.AI Open API operations.
