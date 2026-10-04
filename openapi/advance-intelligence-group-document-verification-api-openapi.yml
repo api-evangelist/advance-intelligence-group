@@ -60,17 +60,6 @@ paths:
                 $ref: '#/components/schemas/DocumentVerificationQueryResponse'
 components:
   schemas:
-    AuthLicenseRequest:
-      type: object
-      properties:
-        licenseEffectiveSeconds:
-          type: integer
-          description: License validity in seconds. Default 600, max 86400.
-        applicationId:
-          type: array
-          items:
-            type: string
-          description: Optional list of application IDs the license is valid for.
     AuthLicenseResponse:
       allOf:
       - $ref: '#/components/schemas/Envelope'
@@ -85,6 +74,28 @@ components:
               expiredTime:
                 type: integer
                 format: int64
+    DocumentVerificationQueryRequest:
+      type: object
+      required:
+      - IDVID
+      properties:
+        IDVID:
+          type: string
+          description: SDK session identifier returned by the client.
+        resultType:
+          type: string
+          enum:
+          - IMAGE_URL
+          - IMAGE_BASE64
+          description: Image return format. IMAGE_URL links are valid for 24 hours; IMAGE_BASE64 returns the raw base64 string.
+    DocumentVerificationQueryResponse:
+      allOf:
+      - $ref: '#/components/schemas/Envelope'
+      - type: object
+        properties:
+          data:
+            type: object
+            description: OCR fields, forgery detection flags and document images.
     Envelope:
       type: object
       description: Common response envelope shared by all ADVANCE.AI Open API operations.
@@ -111,28 +122,17 @@ components:
           description: Whether the call was billable.
       required:
       - code
-    DocumentVerificationQueryResponse:
-      allOf:
-      - $ref: '#/components/schemas/Envelope'
-      - type: object
-        properties:
-          data:
-            type: object
-            description: OCR fields, forgery detection flags and document images.
-    DocumentVerificationQueryRequest:
+    AuthLicenseRequest:
       type: object
-      required:
-      - IDVID
       properties:
-        IDVID:
-          type: string
-          description: SDK session identifier returned by the client.
-        resultType:
-          type: string
-          enum:
-          - IMAGE_URL
-          - IMAGE_BASE64
-          description: Image return format. IMAGE_URL links are valid for 24 hours; IMAGE_BASE64 returns the raw base64 string.
+        licenseEffectiveSeconds:
+          type: integer
+          description: License validity in seconds. Default 600, max 86400.
+        applicationId:
+          type: array
+          items:
+            type: string
+          description: Optional list of application IDs the license is valid for.
   securitySchemes:
     AccessToken:
       type: apiKey
