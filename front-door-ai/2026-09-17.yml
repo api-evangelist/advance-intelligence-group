@@ -4,24 +4,27 @@
 front_door_ai:
   slug: advance-intelligence-group
   lexicon_version: '1.0'
-  probed_at: '2026-09-17'
-  host: advance.ai
-  final_host: advance.ai
-  ownership: unresolved
-  owner: null
-  shares_host_with:
-  - advanceai
+  probed_at: '2026-09-25'
+  host: advancegroup.com
+  final_host: advancegroup.com
+  ownership: own
+  owner: advance-intelligence-group
+  shares_host_with: null
   inherited_from: null
+  alias_of: null
   verdict: scored
-  score: null
-  host_score: 16
-  density: null
-  words: 1014
+  score: 63
+  band: 6
+  band_label: dominant
+  host_score: 63
+  density: 16.64
+  words: 3786
   tiers:
     agentic: 0
-    core: 16
+    core: 63
     model: 0
-  ambiguous: 1
+  ambiguous: 23
   top_terms:
-    AI: 16
-    intelligence: 1
+    AI: 63
+    intelligence: 22
+    smart: 1
