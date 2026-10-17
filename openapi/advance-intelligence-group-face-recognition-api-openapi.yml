@@ -40,20 +40,6 @@ paths:
                 $ref: '#/components/schemas/FaceComparisonResponse'
 components:
   schemas:
-    FaceComparisonRequest:
-      type: object
-      required:
-      - firstImage
-      - secondImage
-      properties:
-        firstImage:
-          type: string
-          format: binary
-          description: First photograph for comparison.
-        secondImage:
-          type: string
-          format: binary
-          description: Second photograph for comparison.
     FaceComparisonResponse:
       allOf:
       - $ref: '#/components/schemas/Envelope'
@@ -97,6 +83,20 @@ components:
           description: Whether the call was billable.
       required:
       - code
+    FaceComparisonRequest:
+      type: object
+      required:
+      - firstImage
+      - secondImage
+      properties:
+        firstImage:
+          type: string
+          format: binary
+          description: First photograph for comparison.
+        secondImage:
+          type: string
+          format: binary
+          description: Second photograph for comparison.
   securitySchemes:
     AccessToken:
       type: apiKey
